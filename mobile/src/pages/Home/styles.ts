@@ -76,32 +76,3 @@ export const PokemonName = styled.Text`
 export const PokemonBadgeContainer = styled.View`
   flex-direction: row;
 `;
-
-export const PokemonBadge = styled.View<PokemonBadgeProps>`
-  height: 25px;
-  max-width: 60px;
-  padding: 5px;
-  border-radius: 3px;
-  margin-right: 5px;
-  margin-top: 5px;
-
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-
-  ${(props) => {
-    const backgroundColor =
-      colors[
-        `color${props.type.charAt(0).toUpperCase() + props.type.slice(1)}`
-      ] || '#fff';
-
-    return css`
-      background-color: ${backgroundColor};
-    `;
-  }}
-`;
-
-export const PokemonBadgeText = styled.Text`
-  color: #fff;
-  font-size: 12px;
-`;

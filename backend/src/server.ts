@@ -7,5 +7,5 @@ app.use(express.json());
 app.use(routes);
 
 app.listen(4444, () => {
-    console.log('milgrau');
+    console.log('Listening on port 4444');
 });

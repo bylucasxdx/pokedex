@@ -4,6 +4,7 @@ import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
 
 import PokemonCardImage from '../../components/PokemonCardImage';
+import PokemonBadge from '../../components/PokemonBadge';
 
 import {
   Container,
@@ -15,8 +16,6 @@ import {
   PokemonName,
   PokemonDescription,
   PokemonNumber,
-  PokemonBadge,
-  PokemonBadgeText,
   PokemonBadgeContainer,
 } from './styles';
 
@@ -27,15 +26,11 @@ import SortIcon from '../../assets/icons/sort.svg';
 import pokemonApi from '../../services/pokemonApi';
 
 import Input from '../../components/Input';
-import Grass from '../../assets/types/grass.svg';
-import Poison from '../../assets/types/poison.svg';
-import Fire from '../../assets/types/fire.svg';
-import Water from '../../assets/types/water.svg';
 
 interface Pokemon {
   id: string;
   name: string;
-  height: number,
+  height: number;
   main_type: string;
   types: string[];
   image_url: string;
@@ -46,7 +41,7 @@ const Home: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
   useEffect(() => {
-    pokemonApi.get('/').then(response => {
+    pokemonApi.get('/').then((response) => {
       setPokemons(response.data);
     });
   });
@@ -78,18 +73,15 @@ const Home: React.FC = () => {
       </Form>
 
       <CardsContainer showsVerticalScrollIndicator={false}>
-        {pokemons.map(pokemon => (
-          <PokemonCard type={pokemon.main_type}>
+        {pokemons.map((pokemon) => (
+          <PokemonCard key={pokemon.id} type={pokemon.main_type}>
             <PokemonDescription>
               <PokemonNumber>#{pokemon.id}</PokemonNumber>
               <PokemonName>{pokemon.name}</PokemonName>
 
               <PokemonBadgeContainer>
-                {pokemon.types.map(type => (
-                  <PokemonBadge type={type}>
-                    <Grass width={12} style={{ marginRight: 5 }} />
-                    <PokemonBadgeText>{type}</PokemonBadgeText>
-                  </PokemonBadge>
+                {pokemon.types.map((type) => (
+                  <PokemonBadge key={type} type={type} />
                 ))}
               </PokemonBadgeContainer>
             </PokemonDescription>
@@ -98,48 +90,14 @@ const Home: React.FC = () => {
           </PokemonCard>
         ))}
 
-        <PokemonCard type="fire">
-          <PokemonDescription>
-            <PokemonNumber>#004</PokemonNumber>
-            <PokemonName>Charmander</PokemonName>
-
-            <PokemonBadgeContainer>
-              <PokemonBadge type="fire">
-                <Fire width={12} style={{ marginRight: 5 }} />
-                <PokemonBadgeText>Fire</PokemonBadgeText>
-              </PokemonBadge>
-            </PokemonBadgeContainer>
-          </PokemonDescription>
-
-          <PokemonCardImage code="004" />
-        </PokemonCard>
-
         <PokemonCard type="water">
           <PokemonDescription>
             <PokemonNumber>#007</PokemonNumber>
             <PokemonName>Squirtle</PokemonName>
 
             <PokemonBadgeContainer>
-              <PokemonBadge type="water">
-                <Water width={12} style={{ marginRight: 5 }} />
-                <PokemonBadgeText>Water</PokemonBadgeText>
-              </PokemonBadge>
-            </PokemonBadgeContainer>
-          </PokemonDescription>
-
-          <PokemonCardImage code="007" />
-        </PokemonCard>
-
-        <PokemonCard type="water">
-          <PokemonDescription>
-            <PokemonNumber>#007</PokemonNumber>
-            <PokemonName>Squirtle</PokemonName>
-
-            <PokemonBadgeContainer>
-              <PokemonBadge type="water">
-                <Water width={12} style={{ marginRight: 5 }} />
-                <PokemonBadgeText>Water</PokemonBadgeText>
-              </PokemonBadge>
+              <PokemonBadge type="water" />
+              <PokemonBadge type="fire" />
             </PokemonBadgeContainer>
           </PokemonDescription>
 
